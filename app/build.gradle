@@ -1,0 +1,44 @@
+plugins {
+    id 'com.android.application'
+}
+
+android {
+    namespace 'kz.carlauncher'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'kz.carlauncher.accent'
+        minSdk 21
+        targetSdk 34
+        versionCode 2
+        versionName '1.1'
+    }
+
+    signingConfigs {
+        // Fixed key kept in the repo, so every new build installs over the previous one
+        // (settings and music list are kept).
+        accent {
+            storeFile file('accent.keystore')
+            storePassword 'accent123'
+            keyAlias 'accent'
+            keyPassword 'accent123'
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            signingConfig signingConfigs.accent
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
